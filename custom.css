@@ -1,0 +1,10 @@
+
+/* Tierra Libre - minimal overrides */
+html { scroll-behavior: smooth; }
+.container { max-width: 1120px; }
+.sep { height: 8px; background: white; width: 100%; }
+.btn { padding: 0.75rem 1.5rem; border-radius: 1rem; font-weight: 800; box-shadow: 0 6px 14px rgba(0,0,0,.08); }
+.card { border-radius: 1.25rem; overflow: hidden; box-shadow: 0 6px 14px rgba(0,0,0,.08); background: #fff; }
+.header-grad { background: linear-gradient(90deg, #15803d 0%, #65a30d 100%); } /* green gradient (default lively) */
+.header-grad.petrolio { background: linear-gradient(90deg, #0f766e 0%, #115e59 100%); } /* optional theme */
+.header-grad.forest { background: linear-gradient(90deg, #166534 0%, #14532d 100%); } /* optional theme */
