@@ -1,12 +1,12 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="utf-8" />
+  <meta charset="utf-8">
   <title>Tierra Libre Social Club</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <meta name="description" content="Tierra Libre Social Club: agricultura regenerativa, santuario felino, educación, autosuficiencia y co-housing ético en Villalonga (Valencia)." />
+  <meta name="viewport" content="width=device-width, initial-scale=1">
   <script src="https://cdn.tailwindcss.com"></script>
-  <link rel="stylesheet" href="assets/custom.css" />
+  <link rel="stylesheet" href="assets/custom.css">
+  <meta name="description" content="Tierra Libre Social Club: agricultura regenerativa, santuario felino, educación ecológica, autosuficiencia y co-housing ético en Villalonga (Valencia).">
 </head>
 <body class="bg-white text-gray-900">
 
@@ -14,6 +14,7 @@
   <header class="sticky top-0 z-40 header-grad text-white shadow-lg">
     <div class="container mx-auto px-4 py-4 flex items-center justify-between">
       <a href="#home" class="text-2xl font-extrabold tracking-tight">🌱 <span data-i18n="brand">Tierra Libre</span></a>
+
       <nav class="hidden md:flex gap-6 text-lg">
         <a class="hover:opacity-90" href="#home" data-i18n="menu.home">Inicio</a>
         <a class="hover:opacity-90" href="#about" data-i18n="menu.about">Quiénes somos</a>
@@ -23,6 +24,8 @@
         <a class="hover:opacity-90" href="#contact" data-i18n="menu.contact">Contáctanos</a>
         <a class="hover:opacity-90" href="#join" data-i18n="menu.join">Participa</a>
       </nav>
+
+      <!-- Lingue: ES (default), IT, EN -->
       <div class="flex items-center gap-2">
         <a href="#gofund" id="fundBtn" class="hidden md:inline-block bg-white text-green-700 font-semibold px-5 py-2 rounded-xl shadow hover:shadow-md" data-i18n="ctas.support">Apóyanos</a>
         <div class="ml-3 flex items-center gap-2 bg-black/10 px-2 py-1 rounded-xl">
@@ -42,9 +45,7 @@
       <div class="absolute inset-0 flex items-center">
         <div class="container mx-auto px-6 text-white">
           <h1 class="text-4xl md:text-6xl font-extrabold leading-tight drop-shadow" data-i18n="heroTitle">Tierra Libre Social Club</h1>
-          <p class="mt-4 text-xl md:text-2xl max-w-3xl" data-i18n="heroSubtitle">
-            Naturaleza, comunidad y libertad: agricultura regenerativa, santuario felino, educación, autosuficiencia y co-housing ético en Villalonga (Valencia).
-          </p>
+          <p class="mt-4 text-xl md:text-2xl max-w-3xl" data-i18n="heroSubtitle">Naturaleza, comunidad y libertad: agricultura regenerativa, santuario felino, educación, autosuficiencia y co-housing ético en Villalonga (Valencia).</p>
           <div class="mt-8 flex flex-wrap gap-4">
             <a href="#join" class="text-lg md:text-xl bg-lime-400 text-black font-extrabold px-8 py-4 rounded-2xl shadow hover:scale-[1.02] transition" data-i18n="ctas.join">Participa</a>
             <a href="#gofund" class="text-lg md:text-xl bg-white text-green-700 font-extrabold px-8 py-4 rounded-2xl shadow hover:scale-[1.02] transition" data-i18n="ctas.support">Apóyanos</a>
@@ -60,7 +61,7 @@
     <div class="container mx-auto px-6 py-12 grid gap-10 md:grid-cols-2 items-center">
       <div>
         <h2 class="text-3xl md:text-4xl font-extrabold" data-i18n="aboutTitle">Quiénes somos</h2>
-        <p class="mt-4 text-lg text-gray-700" data-i18n="aboutP">Tierra Libre Social Club es un proyecto rural inclusivo...</p>
+        <p class="mt-4 text-lg text-gray-700" data-i18n="aboutP">Tierra Libre Social Club es un proyecto rural inclusivo que une agricultura regenerativa, protección animal y apoyo social. Demostramos que un modo de vida sobrio y cooperativo es posible y deseable.</p>
         <ul id="aboutBullets" class="mt-6 space-y-3 text-lg text-gray-800"></ul>
       </div>
       <img class="rounded-3xl shadow-2xl h-80 w-full object-cover" src="https://images.unsplash.com/photo-1501854140801-50d01698950b?q=80&w=1600&auto=format&fit=crop" alt="">
@@ -78,7 +79,7 @@
     <div class="container mx-auto px-6 py-12 grid md:grid-cols-2 gap-10 items-center">
       <div>
         <h2 class="text-3xl md:text-4xl font-extrabold" data-i18n="fundTitle">Recaudación de fondos</h2>
-        <p class="mt-4 text-lg opacity-95" data-i18n="fundP">Estamos activando una campaña en GoFundMe...</p>
+        <p class="mt-4 text-lg opacity-95" data-i18n="fundP">Estamos activando una campaña en GoFundMe para la recuperación del terreno, estructuras de madera y espacios para el santuario felino. En cuanto tengamos el enlace, el botón te llevará directamente a la campaña.</p>
         <a id="fundBtn2" href="#" target="_blank" rel="noreferrer" class="mt-6 inline-block bg-white text-green-700 font-extrabold px-8 py-4 rounded-2xl shadow hover:scale-[1.02] transition text-lg" data-i18n="fundBtn">Ir a la campaña (próximamente)</a>
       </div>
       <img class="rounded-3xl shadow-2xl h-72 w-full object-cover" src="https://images.unsplash.com/photo-1451187580459-43490279c0fa?q=80&w=1600&auto=format&fit=crop" alt="">
@@ -90,7 +91,7 @@
   <section id="pillars" class="bg-white">
     <div class="container mx-auto px-6 py-12">
       <h2 class="text-3xl md:text-4xl font-extrabold" data-i18n="pillarsTitle">Nuestros 11 Pilares</h2>
-      <p class="mt-2 text-lg text-gray-700" data-i18n="pillarsLead">Cada pilar tiene una página...</p>
+      <p class="mt-2 text-lg text-gray-700" data-i18n="pillarsLead">Cada pilar tiene una página con explicaciones detalladas, imágenes y acciones concretas.</p>
       <div id="pillarsGrid" class="mt-8 grid gap-6 sm:grid-cols-2 lg:grid-cols-3"></div>
     </div>
     <div class="sep"></div>
@@ -100,7 +101,7 @@
   <section id="transparency" class="bg-green-50">
     <div class="container mx-auto px-6 py-12">
       <h2 class="text-3xl md:text-4xl font-extrabold" data-i18n="transparencyTitle">Transparencia & ODS</h2>
-      <p class="mt-2 text-lg text-gray-700" data-i18n="transparencyLead">Rendimos cuentas...</p>
+      <p class="mt-2 text-lg text-gray-700" data-i18n="transparencyLead">Rendimos cuentas con indicadores clave y alineación con la Agenda 2030.</p>
       <div id="kpi" class="mt-8 grid gap-6 md:grid-cols-2"></div>
       <div class="mt-10">
         <h3 class="text-2xl font-bold" data-i18n="odsTitle">Alineación ODS</h3>
@@ -114,7 +115,7 @@
   <section id="contact" class="bg-white">
     <div class="container mx-auto px-6 py-12">
       <h2 class="text-3xl md:text-4xl font-extrabold" data-i18n="contactTitle">Contáctanos</h2>
-      <p class="mt-2 text-lg text-gray-700" data-i18n="contactLead">Escríbenos...</p>
+      <p class="mt-2 text-lg text-gray-700" data-i18n="contactLead">Escríbenos para información, ideas o colaboraciones. Te respondemos lo antes posible.</p>
       <form id="contactForm" class="mt-6 space-y-5" action="https://formsubmit.co/info@cooperativatierralibre.com" method="POST">
         <input type="hidden" name="_subject" value="Nuevo contacto – Tierra Libre" />
         <input type="hidden" name="_template" value="table" />
@@ -135,6 +136,7 @@
         </div>
         <button type="submit" class="bg-green-700 text-white font-extrabold px-8 py-4 rounded-2xl shadow text-lg" data-i18n="send">Enviar</button>
       </form>
+      <p class="mt-4 text-sm text-gray-500">También puedes escribir a <a class="underline" href="mailto:info@cooperativatierralibre.com">info@cooperativatierralibre.com</a></p>
     </div>
     <div class="sep"></div>
   </section>
@@ -143,7 +145,7 @@
   <section id="join" class="bg-green-50">
     <div class="container mx-auto px-6 py-12">
       <h2 class="text-3xl md:text-4xl font-extrabold" data-i18n="joinTitle">Participa</h2>
-      <p class="mt-2 text-lg text-gray-700" data-i18n="joinLead">¿Voluntariado, talleres, donaciones de materiales o ideas?</p>
+      <p class="mt-2 text-lg text-gray-700" data-i18n="joinLead">¿Voluntariado, talleres, donaciones de materiales o ideas? Cuéntanos cómo quieres participar.</p>
       <form id="joinForm" class="mt-6 space-y-5" action="https://formsubmit.co/info@cooperativatierralibre.com" method="POST">
         <input type="hidden" name="_subject" value="Nueva propuesta – Participa (Tierra Libre)" />
         <input type="hidden" name="_template" value="table" />
@@ -168,7 +170,7 @@
     <div class="sep"></div>
   </section>
 
-  <!-- GRACIAS -->
+  <!-- THANK YOU -->
   <section id="gracias" class="hidden">
     <div class="container mx-auto px-6 py-24 text-center">
       <h1 class="text-4xl md:text-5xl font-extrabold" data-i18n="thanksTitle">¡Gracias!</h1>
@@ -178,7 +180,7 @@
     <div class="sep"></div>
   </section>
 
-  <!-- Dettaglio pilastro mount -->
+  <!-- MOUNT per il dettaglio pilastro -->
   <div id="detailMount"></div>
 
   <!-- FOOTER -->
@@ -194,6 +196,5 @@
   </footer>
 
   <script src="script.js"></script>
-  <script>document.getElementById("year").textContent = new Date().getFullYear();</script>
 </body>
 </html>
