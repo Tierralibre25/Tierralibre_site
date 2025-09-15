@@ -1,13 +1,16 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="utf-8">
+  <meta charset="utf-8" />
   <title>Tierra Libre Social Club</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="description" content="Tierra Libre Social Club: agricultura regenerativa, santuario felino, educación, autosuficiencia y co-housing ético en Villalonga (Valencia)." />
   <script src="https://cdn.tailwindcss.com"></script>
-  <link rel="stylesheet" href="assets/custom.css">
+  <link rel="stylesheet" href="assets/custom.css" />
 </head>
 <body class="bg-white text-gray-900">
+
+  <!-- NAV -->
   <header class="sticky top-0 z-40 header-grad text-white shadow-lg">
     <div class="container mx-auto px-4 py-4 flex items-center justify-between">
       <a href="#home" class="text-2xl font-extrabold tracking-tight">🌱 <span data-i18n="brand">Tierra Libre</span></a>
@@ -26,13 +29,12 @@
           <button class="text-xl" data-lang="es" aria-label="Español">🇪🇸</button>
           <button class="text-xl" data-lang="it" aria-label="Italiano">🇮🇹</button>
           <button class="text-xl" data-lang="en" aria-label="English">🇬🇧</button>
-          <button class="text-xl" data-lang="fr" aria-label="Français">🇫🇷</button>
-          <button class="text-xl" data-lang="de" aria-label="Deutsch">🇩🇪</button>
         </div>
       </div>
     </div>
   </header>
 
+  <!-- HERO -->
   <section id="home" class="relative">
     <div class="h-[70vh] md:h-[85vh] w-full">
       <img src="https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?q=80&w=2400&auto=format&fit=crop" alt="" class="h-full w-full object-cover" />
@@ -40,7 +42,9 @@
       <div class="absolute inset-0 flex items-center">
         <div class="container mx-auto px-6 text-white">
           <h1 class="text-4xl md:text-6xl font-extrabold leading-tight drop-shadow" data-i18n="heroTitle">Tierra Libre Social Club</h1>
-          <p class="mt-4 text-xl md:text-2xl max-w-3xl" data-i18n="heroSubtitle">Naturaleza, comunidad y libertad...</p>
+          <p class="mt-4 text-xl md:text-2xl max-w-3xl" data-i18n="heroSubtitle">
+            Naturaleza, comunidad y libertad: agricultura regenerativa, santuario felino, educación, autosuficiencia y co-housing ético en Villalonga (Valencia).
+          </p>
           <div class="mt-8 flex flex-wrap gap-4">
             <a href="#join" class="text-lg md:text-xl bg-lime-400 text-black font-extrabold px-8 py-4 rounded-2xl shadow hover:scale-[1.02] transition" data-i18n="ctas.join">Participa</a>
             <a href="#gofund" class="text-lg md:text-xl bg-white text-green-700 font-extrabold px-8 py-4 rounded-2xl shadow hover:scale-[1.02] transition" data-i18n="ctas.support">Apóyanos</a>
@@ -51,6 +55,7 @@
     <div class="sep"></div>
   </section>
 
+  <!-- ABOUT -->
   <section id="about" class="bg-white">
     <div class="container mx-auto px-6 py-12 grid gap-10 md:grid-cols-2 items-center">
       <div>
@@ -63,10 +68,12 @@
     <div class="sep"></div>
   </section>
 
+  <!-- THREE BLOCKS -->
   <section class="bg-gradient-to-b from-white to-green-50">
     <div id="blocks" class="container mx-auto px-6 py-12 grid gap-8 md:grid-cols-3"></div>
   </section>
 
+  <!-- GOFUNDME -->
   <section id="gofund" class="bg-green-700 text-white">
     <div class="container mx-auto px-6 py-12 grid md:grid-cols-2 gap-10 items-center">
       <div>
@@ -79,6 +86,7 @@
     <div class="sep"></div>
   </section>
 
+  <!-- PILLARS GRID -->
   <section id="pillars" class="bg-white">
     <div class="container mx-auto px-6 py-12">
       <h2 class="text-3xl md:text-4xl font-extrabold" data-i18n="pillarsTitle">Nuestros 11 Pilares</h2>
@@ -88,6 +96,7 @@
     <div class="sep"></div>
   </section>
 
+  <!-- TRANSPARENCY -->
   <section id="transparency" class="bg-green-50">
     <div class="container mx-auto px-6 py-12">
       <h2 class="text-3xl md:text-4xl font-extrabold" data-i18n="transparencyTitle">Transparencia & ODS</h2>
@@ -101,6 +110,7 @@
     <div class="sep"></div>
   </section>
 
+  <!-- CONTACT -->
   <section id="contact" class="bg-white">
     <div class="container mx-auto px-6 py-12">
       <h2 class="text-3xl md:text-4xl font-extrabold" data-i18n="contactTitle">Contáctanos</h2>
@@ -129,6 +139,7 @@
     <div class="sep"></div>
   </section>
 
+  <!-- JOIN -->
   <section id="join" class="bg-green-50">
     <div class="container mx-auto px-6 py-12">
       <h2 class="text-3xl md:text-4xl font-extrabold" data-i18n="joinTitle">Participa</h2>
@@ -157,17 +168,20 @@
     <div class="sep"></div>
   </section>
 
+  <!-- GRACIAS -->
   <section id="gracias" class="hidden">
     <div class="container mx-auto px-6 py-24 text-center">
       <h1 class="text-4xl md:text-5xl font-extrabold" data-i18n="thanksTitle">¡Gracias!</h1>
-      <p class="mt-4 text-lg text-gray-700" data-i18n="thanksP">Hemos recibido tu mensaje...</p>
+      <p class="mt-4 text-lg text-gray-700" data-i18n="thanksP">Hemos recibido tu mensaje y te responderemos lo antes posible.</p>
       <a href="#home" class="mt-8 inline-block bg-green-700 text-white font-extrabold px-8 py-4 rounded-2xl shadow text-lg" data-i18n="thanksBack">Volver al inicio</a>
     </div>
     <div class="sep"></div>
   </section>
 
+  <!-- Dettaglio pilastro mount -->
   <div id="detailMount"></div>
 
+  <!-- FOOTER -->
   <footer class="bg-white">
     <div class="container mx-auto px-6 py-10 border-t text-gray-700 flex flex-col md:flex-row md:items-center md:justify-between gap-4">
       <p class="text-sm">© <span id="year"></span> Tierra Libre Social Club • <span data-i18n="footerLoc">Villalonga (Valencia)</span></p>
@@ -179,7 +193,6 @@
     </div>
   </footer>
 
-  <script src="https://cdn.tailwindcss.com"></script>
   <script src="script.js"></script>
   <script>document.getElementById("year").textContent = new Date().getFullYear();</script>
 </body>
