@@ -1,28 +1,26 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="utf-8">
+  <meta charset="utf-8" />
   <title>Pilar • Tierra Libre Social Club</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
   <script src="https://cdn.tailwindcss.com"></script>
-  <link rel="stylesheet" href="assets/custom.css">
+  <link rel="stylesheet" href="assets/custom.css" />
 </head>
 <body class="bg-white text-gray-900" data-page="pillar">
-  <!-- NAVBAR -->
   <header class="sticky top-0 z-40 header-grad text-white shadow-lg">
     <div class="container mx-auto px-4 py-4 flex items-center justify-between">
       <a href="index.html#home" class="text-2xl font-extrabold tracking-tight">🌱 <span data-i18n="brand">Tierra Libre</span></a>
       <nav class="hidden md:flex gap-6 text-lg">
         <a class="hover:opacity-90" href="index.html#home" data-i18n="menu.home">Inicio</a>
-        <a className="hover:opacity-90" href="index.html#about" data-i18n="menu.about">Quiénes somos</a>
+        <a class="hover:opacity-90" href="index.html#about" data-i18n="menu.about">Quiénes somos</a>
         <a class="hover:opacity-90" href="index.html#pillars" data-i18n="menu.pillars">Nuestros 11 Pilares</a>
-        <a class="hover:opacity-90" href="index.html#gofund" data-i18n="menu.fund">Recaudación de fondos</a>
+        <a class="hover:opacity-90" href="fundraisers.html" data-i18n="menu.fund">Recaudación de fondos</a>
         <a class="hover:opacity-90" href="index.html#transparency" data-i18n="menu.transparency">Transparencia & ODS</a>
         <a class="hover:opacity-90" href="index.html#contact" data-i18n="menu.contact">Contáctanos</a>
         <a class="hover:opacity-90" href="index.html#join" data-i18n="menu.join">Participa</a>
       </nav>
       <div class="flex items-center gap-2">
-        <a href="index.html#gofund" id="fundBtn" class="hidden md:inline-block bg-white text-green-700 font-semibold px-5 py-2 rounded-xl shadow hover:shadow-md" data-i18n="ctas.support">Apóyanos</a>
         <div class="ml-3 flex items-center gap-2 bg-black/10 px-2 py-1 rounded-xl">
           <button class="text-xl" data-lang="es" aria-label="Español">🇪🇸</button>
           <button class="text-xl" data-lang="it" aria-label="Italiano">🇮🇹</button>
@@ -32,17 +30,15 @@
     </div>
   </header>
 
-  <!-- DETTAGLIO PILASTRO -->
   <div id="pillarMount"></div>
 
-  <!-- FOOTER -->
   <footer class="bg-white">
     <div class="container mx-auto px-6 py-10 border-t text-gray-700 flex flex-col md:flex-row md:items-center md:justify-between gap-4">
       <p class="text-sm">© <span id="year"></span> Tierra Libre Social Club • <span data-i18n="footerLoc">Villalonga (Valencia)</span></p>
       <div class="flex gap-5 text-sm">
         <a class="underline" href="mailto:info@cooperativatierralibre.com">info@cooperativatierralibre.com</a>
-        <a class="underline" href="index.html#contact" data-i18n="menu.contact">Contattaci</a>
-        <a class="underline" href="index.html#join" data-i18n="menu.join">Partecipa</a>
+        <a class="underline" href="index.html#contact" data-i18n="menu.contact">Contáctanos</a>
+        <a class="underline" href="index.html#join" data-i18n="menu.join">Participa</a>
       </div>
     </div>
   </footer>
