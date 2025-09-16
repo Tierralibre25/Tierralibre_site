@@ -6,7 +6,7 @@
  */
 const GOFUNDME_BY_PILLAR = {
   "santuario-felino": "https://www.gofundme.com/f/la-casa-de-silvestro" // ⬅️ sostituisci con l'URL esatto
-  // "recupero-etico-terreno": "https://gofund.me/267c55d0",
+  // "recupero-etico-terreno": "https://gofund.me/84c0db75d",
   // ...aggiungi gli altri quando pronti
 };
 
