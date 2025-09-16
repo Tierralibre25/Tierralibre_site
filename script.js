@@ -373,33 +373,6 @@ PILLARS.en = PILLARS.es.map(p => {
   return { slug:p.slug, title:m?m.title:p.title, cover:p.cover, text:m?m.text:p.text,
     detail:{ why:m?m.why:p.detail.why, actions:m?m.actions:p.detail.actions, needs:m?m.needs:p.detail.needs } };
 });
-/* Fallback immagini multi-sorgente */
-function tlNextFallback(img){
-  try{
-    const list = JSON.parse(img.getAttribute('data-srcs')||'[]');
-    const idx = parseInt(img.getAttribute('data-idx')||'0',10);
-    const next = list[idx+1];
-    if(next){
-      img.setAttribute('data-idx', String(idx+1));
-      img.src = next;
-    }else{
-      img.src = 'https://placehold.co/1600x900?text=Imagen+no+disponible';
-    }
-  }catch(e){
-    img.src = 'https://placehold.co/1600x900?text=Imagen+no+disponible';
-  }
-}
-function imgTag(srcOrArr, alt, classes=""){
-  const srcs = Array.isArray(srcOrArr) ? srcOrArr : [srcOrArr];
-  const safe = JSON.stringify(srcs);
-  return `<img src="${srcs[0]}" data-srcs='${safe}' data-idx="0" alt="${alt}" class="${classes}" onerror="tlNextFallback(this)">`;
-}
-
-/* ========== Utility: get URL campagna ========== */
-function getPillarFundUrl(slug) {
-  const u = GOFUNDME_BY_PILLAR[slug];
-  return (u && u !== "#") ? u : COMING_SOON_URL;
-}
 /* ================== Stato & utilità ================== */
 let state = { lang: localStorage.getItem("lang") || "es" };
 
