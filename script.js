@@ -5,7 +5,7 @@
  *  Per ora ho collegato solo La Casa de Silvestro (sostituisci con l'URL reale della tua campagna).
  */
 const GOFUNDME_BY_PILLAR = {
-  "santuario-felino": "https://www.gofundme.com/f/la-casa-de-silvestro" // ⬅️ sostituisci con l'URL esatto
+  "santuario-felino": "https://www.gofundme.com/f/casa-para-gatos-libres-ayudanos-con-la-casa-de-silvestro?lang=es_ES" // ⬅️ sostituisci con l'URL esatto
   // "recupero-etico-terreno": "https://gofund.me/84c0db75d",
   // ...aggiungi gli altri quando pronti
 };
