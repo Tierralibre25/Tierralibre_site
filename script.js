@@ -1,37 +1,13 @@
 /* ========= Tierra Libre – ES/IT/EN + Fundraising per pilastro + fallback immagini ========= */
 
-/** 🔗 Campagne per singolo pilastro (slug → URL)
- *  Metti qui i link reali quando li hai./* ========== Gestione fallback immagini ========== */
-function tlNextFallback(img){
-  try{
-    const list = JSON.parse(img.getAttribute('data-srcs')||'[]');
-    const idx = parseInt(img.getAttribute('data-idx')||'0',10);
-    const next = list[idx+1];
-    if(next){
-      img.setAttribute('data-idx', String(idx+1));
-      img.src = next;
-    }else{
-      img.src = 'https://placehold.co/1600x900?text=Imagen+no+disponible';
-    }
-  }catch(e){
-    img.src = 'https://placehold.co/1600x900?text=Imagen+no+disponible';
-  }
-}
-function imgTag(srcOrArr, alt, classes=""){
-  const srcs = Array.isArray(srcOrArr) ? srcOrArr : [srcOrArr];
-  const safe = JSON.stringify(srcs);
-  return `<img src="${srcs[0]}" data-srcs='${safe}' data-idx="0" alt="${alt}" class="${classes}" onerror="tlNextFallback(this)">`;
-}
- *  Per ora ho collegato solo La Casa de Silvestro (sostituisci con l'URL reale della tua campagna).
- */
+/** 🔗 Campagne per singolo pilastro (slug → URL) */
 const GOFUNDME_BY_PILLAR = {
-  "santuario-felino": "https://www.gofundme.com/f/casa-para-gatos-libres-ayudanos-con-la-casa-de-silvestro?lang=es_ES" // ⬅️ sostituisci con l'URL esatto
-  // "recupero-etico-terreno": "https://gofund.me/84c0db75d",
-  // ...aggiungi gli altri quando pronti
+  // Casa de Silvestro (santuario felino) — link fornito da te
+  "santuario-felino": "https://gofund.me/ae25aeac4"
 };
-
-/** 🔗 Pagina elenco generale campagne */
+/** Pagina elenco generale e “coming soon” */
 const FUND_LIST_URL = "fundraisers.html";
+const COMING_SOON_URL = "coming-soon.html";
 
 /* ---------- Testi UI (ES/IT/EN) ---------- */
 const TEXT = {
@@ -42,7 +18,7 @@ const TEXT = {
     heroSubtitle:"Naturaleza, comunidad y libertad: agricultura regenerativa, santuario felino, educación, autosuficiencia y co-housing ético en Villalonga (Valencia).",
     ctas:{ join:"Participa", support:"Apóyanos" },
     aboutTitle:"Quiénes somos",
-    aboutP:"Tierra Libre Social Club es un proyecto rural inclusivo que une agricultura regenerativa, protección animal y apoyo social. Demostramos que un modo de vida sobrio y cooperativo es posible y deseable.",
+    aboutP:"Tierra Libre Social Club es un proyecto rural inclusivo que une agricultura regenerativa, protección animal y apoyo social.",
     aboutBullets:[
       "Economía circular y lucha contra el despilfarro",
       "Inclusión y apoyo a personas vulnerables",
@@ -55,8 +31,8 @@ const TEXT = {
       { title:"Comunidad & co-housing", text:"Micro-aldea rural ética para personas solas y vulnerables.", img:"https://images.unsplash.com/photo-1441974231531-c6227db76b6e?q=80&w=1600&auto=format&fit=crop" }
     ],
     fundTitle:"Recaudación de fondos",
-    fundP:"Estamos activando una campaña en GoFundMe para la recuperación del terreno, estructuras ligeras de madera y espacios para el santuario felino.",
-    fundBtn:"Ir a la campaña (próximamente)",
+    fundP:"Estamos activando campañas GoFundMe por pilar.",
+    fundBtn:"Ir a las campañas",
     pillarsTitle:"Nuestros 11 Pilares",
     pillarsLead:"Cada pilar tiene una página con explicaciones detalladas, imágenes y acciones concretas.",
     discover:"Descubre más",
@@ -89,7 +65,7 @@ const TEXT = {
     heroSubtitle:"Natura, comunità e libertà: agricoltura rigenerativa, santuario felino, educazione, autosufficienza e co-housing etico a Villalonga (Valencia).",
     ctas:{ join:"Partecipa", support:"Sostienici" },
     aboutTitle:"Chi siamo",
-    aboutP:"Tierra Libre Social Club è un progetto rurale inclusivo che unisce agricoltura rigenerativa, protezione animale e sostegno sociale. Dimostriamo che uno stile di vita sobrio e cooperativo è possibile e desiderabile.",
+    aboutP:"Tierra Libre Social Club è un progetto rurale inclusivo che unisce agricoltura rigenerativa, protezione animale e sostegno sociale.",
     aboutBullets:[
       "Economia circolare e lotta allo spreco",
       "Inclusione e supporto a persone vulnerabili",
@@ -102,8 +78,8 @@ const TEXT = {
       { title:"Comunità & co-housing", text:"Micro-villaggio rurale etico per persone sole e vulnerabili.", img:"https://images.unsplash.com/photo-1441974231531-c6227db76b6e?q=80&w=1600&auto=format&fit=crop" }
     ],
     fundTitle:"Raccolta fondi",
-    fundP:"Stiamo lanciando una campagna GoFundMe per il recupero del terreno, strutture leggere in legno e spazi per il santuario felino.",
-    fundBtn:"Vai alla campagna (presto online)",
+    fundP:"Stiamo attivando campagne GoFundMe per ogni pilastro.",
+    fundBtn:"Vai alle campagne",
     pillarsTitle:"I Nostri 11 Pilastri",
     pillarsLead:"Ogni pilastro ha una pagina con spiegazioni dettagliate, immagini e azioni concrete.",
     discover:"Scopri di più",
@@ -135,7 +111,7 @@ const TEXT = {
     heroSubtitle:"Nature, community and freedom: regenerative farming, feline sanctuary, education, self-sufficiency and ethical co-housing in Villalonga (Valencia).",
     ctas:{ join:"Join", support:"Support" },
     aboutTitle:"About us",
-    aboutP:"Tierra Libre Social Club is an inclusive rural project that brings together regenerative agriculture, animal protection and social support. We show that a sober, cooperative way of life is possible and desirable.",
+    aboutP:"Tierra Libre Social Club is an inclusive rural project that brings together regenerative agriculture, animal protection and social support.",
     aboutBullets:[
       "Circular economy & anti-waste",
       "Inclusion & support for vulnerable people",
@@ -148,8 +124,8 @@ const TEXT = {
       { title:"Community & co-housing", text:"Ethical rural micro-village for singles and vulnerable people.", img:"https://images.unsplash.com/photo-1441974231531-c6227db76b6e?q=80&w=1600&auto=format&fit=crop" }
     ],
     fundTitle:"Fundraising",
-    fundP:"We are launching a GoFundMe campaign for land recovery, light wooden structures and spaces for the feline sanctuary.",
-    fundBtn:"Go to the campaign (soon)",
+    fundP:"We are opening GoFundMe campaigns per pillar.",
+    fundBtn:"See campaigns",
     pillarsTitle:"Our 11 Pillars",
     pillarsLead:"Each pillar has a page with detailed explanations, images and concrete actions.",
     discover:"Learn more",
@@ -176,7 +152,7 @@ const TEXT = {
   }
 };
 
-/* ---------- Dati 11 Pilastri (ES base) + immagini con fallback dove serviva ---------- */
+/* ---------- Dati 11 Pilastri (ES base) con fallback immagini dove serviva ---------- */
 const PILLARS = {
   es: [
     { slug:"recupero-etico-terreno", title:"Recuperación ética de un terreno agrícola",
@@ -194,7 +170,6 @@ const PILLARS = {
         needs:["Alimento","Arenas","Materiales para refugios","Fondo clínico"] } },
 
     { slug:"galline-etiche", title:"Micro-crianza no violenta de gallinas",
-      // bambini/educazione hanno già un blocco sotto; qui restiamo sulle galline classiche
       cover:"https://images.unsplash.com/photo-1501004318641-b39e6451bec6?q=80&w=1600&auto=format&fit=crop",
       text:"Gallinas ‘descartadas’ de la industria intensiva, rescatadas y libres. Huevos no a la venta: excedentes donados a escuelas y familias con necesidad.",
       detail:{ why:"Dignidad animal y consumo responsable.",
@@ -202,12 +177,9 @@ const PILLARS = {
         needs:["Redes","Comederos","Madera para posaderos"] } },
 
     { slug:"capre-pascolo-sostenibile", title:"Pastoreo sostenible con cabras",
-  cover:"https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?q=80&w=1600&auto=format&fit=crop",
-  text:"Cabras para el control ecológico de la vegetación: nada de herbicidas, menos maquinaria contaminante. Animales libres, cuidados, nunca al matadero.",
-  detail:{ why:"Reduce riesgo de incendios y favorece el mosaico ecológico.",
-    actions:["Vallas móviles y bebederos seguros","Protocolo de bienestar y visitas veterinarias"],
-    needs:["Vallado","Cobertizos de sombra"] },
-
+      cover:[
+        "https://images.unsplash.com/photo-1521191716272-9fc8e2938ac7?q=80&w=1600&auto=format&fit=crop",
+        "https://images.unsplash.com/photo-1516980907201-943c13a8d03f?q=80&w=1600&auto=format&fit=crop"
       ],
       text:"Cabras para el control ecológico de la vegetación: nada de herbicidas, menos maquinaria contaminante. Animales libres, cuidados, nunca al matadero.",
       detail:{ why:"Reduce riesgo de incendios y favorece el mosaico ecológico.",
@@ -215,7 +187,6 @@ const PILLARS = {
         needs:["Vallado","Cobertizos de sombra"] } },
 
     { slug:"educazione-ecologica", title:"Educación ecológica para niñas/os y familias",
-      // 👧🧒 Bambini: primaria + fallback
       cover:[
         "https://images.unsplash.com/photo-1520975922284-4f59b94189ee?q=80&w=1600&auto=format&fit=crop",
         "https://images.unsplash.com/photo-1529156069898-49953e39b3ac?q=80&w=1600&auto=format&fit=crop"
@@ -250,23 +221,22 @@ const PILLARS = {
       cover:"https://images.unsplash.com/photo-1496302662116-35cc4f36df92?q=80&w=1600&auto=format&fit=crop",
       text:"Alineamiento con el Plan Valenciano de Clima y Agenda 2030: ODS 1, 2, 11, 12, 15. Impacto real y medible con objetivos claros y transparencia.",
       detail:{ why:"Hablar el lenguaje institucional facilita alianzas y convocatorias.",
-        actions:["KPI trimestrales públicos","Mapa de convocatorias y alianzas"],
-        needs:["Apoyo legal/administrativo pro-bono"] } },
+      actions:["KPI trimestrales públicos","Mapa de convocatorias y alianzas"],
+      needs:["Apoyo legal/administrativo pro-bono"] } },
 
     { slug:"cohousing-rurale", title:"Co-housing rural ético para personas solas",
-  cover:"https://images.unsplash.com/photo-1505691938895-1758d7feb511?q=80&w=1600&auto=format&fit=crop",
-  text:"Micro-aldea ética: 6–7 casitas de 28–30 m² para personas excluidas del mercado de vivienda. Usufructo solidario y energía renovable.",
-  detail:{ why:"Hogar, comunidad y seguridad para quien está excluido/a.",
-    actions:["Prototipo de unidad 28 m²","Reglamento de convivencia"],
-    needs:["Proyecto técnico","Madera certificada","Tornillería estructural"] } },
+      cover:"https://images.unsplash.com/photo-1523419409543-8c1a4de0db48?q=80&w=1600&auto=format&fit=crop",
+      text:"Micro-aldea ética: 6–7 casitas de 28–30 m² para personas excluidas del mercado de vivienda. Usufructo solidario y energía renovable.",
+      detail:{ why:"Hogar, comunidad y seguridad para quien está excluido/a.",
+        actions:["Prototipo de unidad 28 m²","Reglamento de convivencia"],
+        needs:["Proyecto técnico","Madera certificada","Tornillería estructural"] } },
 
     { slug:"supporto-etico", title:"Apoyo ético & transparencia",
-  cover:"https://images.unsplash.com/photo-1523246191208-8b27648b0403?q=80&w=1600&auto=format&fit=crop",
-  text:"Transparencia total: cuentas dedicadas, control ético y documentación disponible. Pedimos apoyo económico y alianzas responsables, no caridad.",
-  detail:{ why:"La confianza nace de una rendición de cuentas clara.",
-    actions:["Publicación de balance trimestral","Trazabilidad de donaciones"],
-    needs:["Asesoría contable voluntaria","Herramientas de rendición"] } },
-
+      cover:"https://images.unsplash.com/photo-1523246191208-8b27648b0403?q=80&w=1600&auto=format&fit=crop",
+      text:"Transparencia total: cuentas dedicadas, control ético y documentación disponible. Pedimos apoyo económico y alianzas responsables, no caridad.",
+      detail:{ why:"La confianza nace de una rendición de cuentas clara.",
+        actions:["Publicación de balance trimestral","Trazabilidad de donaciones"],
+        needs:["Asesoría contable voluntaria","Herramientas de rendición"] } }
   ],
   it: null, en: null
 };
@@ -296,7 +266,6 @@ PILLARS.it = PILLARS.es.map(p => {
       needs:["Recinzioni","Ricoveri ombreggiati"] },
     "educazione-ecologica": { title:"Educazione ecologica per bambini e famiglie",
       text:"Visite guidate, laboratori all’aperto e attività gratuite: educazione ambientale, empatia verso gli animali e responsabilità condivisa.",
-      why:"Seminare competenze e valori che restano.",
       actions:["Calendario mensile dei laboratori","Kit didattici open-source"],
       needs:["Stuoie","Tavoli pieghevoli","Materiale stampato"] },
     "recupero-creativo": { title:"Recupero creativo & lotta allo spreco",
@@ -396,13 +365,16 @@ PILLARS.en = PILLARS.es.map(p => {
   return { slug:p.slug, title:m?m.title:p.title, cover:p.cover, text:m?m.text:p.text,
     detail:{ why:m?m.why:p.detail.why, actions:m?m.actions:p.detail.actions, needs:m?m.needs:p.detail.needs } };
 });
-/* ================== Stato & utilità ================== */
+
+/* ================== Stato & util ================== */
 let state = { lang: localStorage.getItem("lang") || "es" };
 
 function t(path){ const parts=path.split("."); let cur=TEXT[state.lang]||TEXT.es; for (const p of parts) cur=cur[p]; return cur; }
-function setLang(lang){ state.lang=lang; localStorage.setItem("lang",lang); translateUI(); renderAboutBullets(); renderBlocks(); renderPillars(); renderKPI(); renderODS(); updateNextRedirects(); renderPillarPageIfNeeded(); renderFundListIfNeeded(); applyThanksVisibility(); }
-function translateUI(){ document.querySelectorAll("[data-i18n]").forEach(el=>{ const key=el.getAttribute("data-i18n"); const val=t(key); if(typeof val==="string") el.textContent=val; }); document.querySelectorAll("[data-i18n-ph]").forEach(el=>{ const key=el.getAttribute("data-i18n-ph"); const val=t(key); if(typeof val==="string") el.setAttribute("placeholder",val); }); }
-
+function setLang(lang){ state.lang=lang; localStorage.setItem("lang",lang);
+  translateUI(); renderAboutBullets(); renderBlocks(); renderPillars(); renderKPI(); renderODS();
+  updateNextRedirects(); renderPillarPageIfNeeded(); renderFundListIfNeeded(); applyThanksVisibility(); }
+function translateUI(){ document.querySelectorAll("[data-i18n]").forEach(el=>{ const key=el.getAttribute("data-i18n"); const val=t(key); if(typeof val==="string") el.textContent=val; });
+  document.querySelectorAll("[data-i18n-ph]").forEach(el=>{ const key=el.getAttribute("data-i18n-ph"); const val=t(key); if(typeof val==="string") el.setAttribute("placeholder",val); }); }
 function renderAboutBullets(){ const ul=document.getElementById("aboutBullets"); if(!ul) return; ul.innerHTML=""; (t("aboutBullets")||[]).forEach(txt=>{ const li=document.createElement("li"); li.textContent="• "+txt; ul.appendChild(li); }); }
 
 /* IMG fallback helper */
@@ -413,6 +385,7 @@ function imgTag(srcOrArr, alt, classes=""){
   return `<img src="${primary}" alt="${alt}" class="${classes}" onerror="this.onerror=null;this.src='${fallback}'">`;
 }
 
+/* Blocchi */
 function renderBlocks(){ const wrap=document.getElementById("blocks"); if(!wrap) return; wrap.innerHTML="";
   (t("blocks")||[]).forEach(b=>{
     wrap.insertAdjacentHTML("beforeend", `
@@ -426,7 +399,7 @@ function renderBlocks(){ const wrap=document.getElementById("blocks"); if(!wrap)
   });
 }
 
-/* Link “Scopri di più” → pagina pilar.html */
+/* Griglia pilastri → link a pilar.html */
 function renderPillars(){ const data=PILLARS[state.lang]||PILLARS.es; const grid=document.getElementById("pillarsGrid"); if(!grid) return; grid.innerHTML=""; const discover=t("discover");
   data.forEach(p=>{
     const coverHtml = imgTag(p.cover, p.title, "h-full w-full object-cover group-hover:scale-105 transition-transform duration-300");
@@ -442,7 +415,7 @@ function renderPillars(){ const data=PILLARS[state.lang]||PILLARS.es; const grid
   });
 }
 
-/* KPI / ODS come prima */
+/* KPI / ODS */
 function renderKPI(){ const wrap=document.getElementById("kpi"); if(!wrap) return; wrap.innerHTML="";
   t("kpi").forEach(k=>{
     wrap.insertAdjacentHTML("beforeend", `
@@ -457,7 +430,6 @@ function renderKPI(){ const wrap=document.getElementById("kpi"); if(!wrap) retur
       </div>`);
   });
 }
-
 function renderODS(){ const wrap=document.getElementById("ods"); if(!wrap) return; wrap.innerHTML="";
   t("ods").forEach(o=>{
     wrap.insertAdjacentHTML("beforeend", `
@@ -473,8 +445,9 @@ function renderODS(){ const wrap=document.getElementById("ods"); if(!wrap) retur
   });
 }
 
-/* Redirect post-form */
-function updateNextRedirects(){ const base=location.href.split('#')[0];
+/* Redirect post-form a #gracias */
+function updateNextRedirects(){
+  const base=location.href.split('#')[0];
   const nextUrl=(base.includes("index.html")?base:base.replace(/\/$/,'/')+"index.html")+"#gracias";
   const cNext=document.getElementById("contactNext"); const jNext=document.getElementById("joinNext");
   if(cNext) cNext.value=nextUrl; if(jNext) jNext.value=nextUrl;
@@ -483,12 +456,18 @@ function applyThanksVisibility(){ const section=document.getElementById("gracias
   if(location.hash.replace('#','')==='gracias'){ section.classList.remove('hidden'); } else { section.classList.add('hidden'); } }
 function setYear(){ const y=document.getElementById("year"); if(y) y.textContent=new Date().getFullYear(); }
 
-/* --------- Pagina pilastro (pilar.html) --------- */
+/* Utilities */
 function qs(name){ const m=location.search.match(new RegExp('[?&]'+name+'=([^&]+)')); return m ? decodeURIComponent(m[1]) : null; }
 function pillarArr(){ return PILLARS[state.lang]||PILLARS.es; }
 function pillarBySlug(slug){ return pillarArr().find(x=>x.slug===slug); }
-function getPillarFundUrl(slug){ const u=GOFUNDME_BY_PILLAR[slug]; return (u && u !== "#") ? u : FUND_LIST_URL; }
 
+/* Campagna per pilastro: se non c’è, vai a coming soon */
+function getPillarFundUrl(slug) {
+  const u = GOFUNDME_BY_PILLAR[slug];
+  return (u && u !== "#") ? u : COMING_SOON_URL;
+}
+
+/* Pagina pilastro */
 function renderPillarPageIfNeeded(){
   const mount=document.getElementById("pillarMount");
   if(!mount) return;
@@ -505,7 +484,7 @@ function renderPillarPageIfNeeded(){
         <div class="container mx-auto px-6 py-16 text-center">
           <h1 class="text-3xl md:text-4xl font-extrabold">Pilar no encontrado</h1>
           <p class="mt-3 text-gray-700">El elemento solicitado no existe o se ha movido.</p>
-          <a href="index.html#pillars" class="mt-6 inline-block bg-gray-200 text-gray-800 font-semibold px-6 py-3 rounded-xl">${backTxt}</a>
+          <a href="index.html#pillars" class="mt-6 inline-block btn-muted">${backTxt}</a>
         </div>
       </section>`;
     return;
@@ -516,7 +495,7 @@ function renderPillarPageIfNeeded(){
   mount.innerHTML = `
     <section class="bg-gradient-to-b from-green-50 to-white">
       <div class="container mx-auto px-6 py-12">
-        <div class="rounded-3xl overflow-hidden shadow-xl bg-white">
+        <div class="card">
           ${coverHtml}
           <div class="p-8">
             <nav class="text-sm text-gray-500"><a class="underline" href="index.html#home">Home</a> / <a class="underline" href="index.html#pillars">${t("pillarsTitle")}</a> / <span>${p.title}</span></nav>
@@ -542,8 +521,8 @@ function renderPillarPageIfNeeded(){
             </div>
 
             <div class="mt-6 flex flex-wrap gap-4">
-              <a href="${getPillarFundUrl(p.slug)}" target="_blank" rel="noreferrer" class="bg-green-700 text-white font-extrabold px-6 py-3 rounded-xl">${suppTxt}</a>
-              <a href="index.html#pillars" class="bg-gray-200 text-gray-800 font-semibold px-6 py-3 rounded-xl">${backTxt}</a>
+              <a href="${getPillarFundUrl(p.slug)}" target="_blank" rel="noreferrer" class="btn-primary">${suppTxt}</a>
+              <a href="index.html#pillars" class="btn-muted">${backTxt}</a>
             </div>
           </div>
         </div>
@@ -551,7 +530,12 @@ function renderPillarPageIfNeeded(){
     </section>`;
 }
 
-/* --------- Pagina elenco campagne (fundraisers.html) --------- */
+/* Elenco campagne (fundraisers.html) */
+function comingSoonLabel() {
+  if (state.lang === "it") return " (in arrivo entro il 20 settembre)";
+  if (state.lang === "en") return " (coming by September 20)";
+  return " (próximamente antes del 20 de septiembre)";
+}
 function renderFundListIfNeeded(){
   const list=document.getElementById("fundList");
   if(!list) return;
@@ -559,7 +543,7 @@ function renderFundListIfNeeded(){
   const data = pillarArr();
   data.forEach(p=>{
     const url = getPillarFundUrl(p.slug);
-    const hasFund = (url !== FUND_LIST_URL);
+    const hasFund = (url !== COMING_SOON_URL);
     const coverHtml = imgTag(p.cover, p.title, "h-44 w-full object-cover");
     list.insertAdjacentHTML("beforeend", `
       <div class="card border overflow-hidden">
@@ -568,10 +552,10 @@ function renderFundListIfNeeded(){
           <h3 class="text-xl font-bold">${p.title}</h3>
           <p class="mt-2 text-gray-700">${p.text}</p>
           <div class="mt-4 flex gap-3">
-            <a href="pilar.html?slug=${encodeURIComponent(p.slug)}" class="bg-gray-200 text-gray-800 font-semibold px-5 py-2 rounded-xl">${t("discover")}</a>
+            <a href="pilar.html?slug=${encodeURIComponent(p.slug)}" class="btn-muted">${t("discover")}</a>
             <a href="${url}" ${hasFund?'target="_blank" rel="noreferrer"':''}
-               class="bg-green-700 text-white font-extrabold px-5 py-2 rounded-xl ${hasFund?'':'opacity-60 cursor-not-allowed'}">
-               ${t("supportThis")}${hasFund?'':' (prossimamente)'}
+               class="btn-primary ${hasFund?'':'opacity-60'}">
+               ${t("supportThis")}${hasFund?'':comingSoonLabel()}
             </a>
           </div>
         </div>
@@ -600,10 +584,9 @@ document.addEventListener("DOMContentLoaded", ()=>{
   renderFundListIfNeeded();
   applyThanksVisibility();
 
-  /* Bottoni “Sostienici/Apóyanos” generici → elenco campagne */
+  // Pulsanti generici → elenco campagne
   const fundBtn=document.getElementById("fundBtn");
   const fundBtn2=document.getElementById("fundBtn2");
   if (fundBtn) fundBtn.href = FUND_LIST_URL;
   if (fundBtn2) fundBtn2.href = FUND_LIST_URL;
 });
-
