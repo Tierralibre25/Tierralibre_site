@@ -202,10 +202,12 @@ const PILLARS = {
         needs:["Redes","Comederos","Madera para posaderos"] } },
 
     { slug:"capre-pascolo-sostenibile", title:"Pastoreo sostenible con cabras",
-      // 🐐 Caprette: primaria + fallback (se la prima fallisce)
-      cover:[
-        "https://images.unsplash.com/photo-1521191716272-9fc8e2938ac7?q=80&w=1600&auto=format&fit=crop",
-        "https://images.unsplash.com/photo-1516980907201-943c13a8d03f?q=80&w=1600&auto=format&fit=crop"
+  cover:"https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?q=80&w=1600&auto=format&fit=crop",
+  text:"Cabras para el control ecológico de la vegetación: nada de herbicidas, menos maquinaria contaminante. Animales libres, cuidados, nunca al matadero.",
+  detail:{ why:"Reduce riesgo de incendios y favorece el mosaico ecológico.",
+    actions:["Vallas móviles y bebederos seguros","Protocolo de bienestar y visitas veterinarias"],
+    needs:["Vallado","Cobertizos de sombra"] },
+
       ],
       text:"Cabras para el control ecológico de la vegetación: nada de herbicidas, menos maquinaria contaminante. Animales libres, cuidados, nunca al matadero.",
       detail:{ why:"Reduce riesgo de incendios y favorece el mosaico ecológico.",
@@ -252,18 +254,19 @@ const PILLARS = {
         needs:["Apoyo legal/administrativo pro-bono"] } },
 
     { slug:"cohousing-rurale", title:"Co-housing rural ético para personas solas",
-      cover:"https://images.unsplash.com/photo-1523419409543-8c1a4de0db48?q=80&w=1600&auto=format&fit=crop",
-      text:"Micro-aldea ética: 6–7 casitas de 28–30 m² para personas excluidas del mercado de vivienda. Usufructo solidario y energía renovable.",
-      detail:{ why:"Hogar, comunidad y seguridad para quien está excluido/a.",
-        actions:["Prototipo de unidad 28 m²","Reglamento de convivencia"],
-        needs:["Proyecto técnico","Madera certificada","Tornillería estructural"] } },
+  cover:"https://images.unsplash.com/photo-1505691938895-1758d7feb511?q=80&w=1600&auto=format&fit=crop",
+  text:"Micro-aldea ética: 6–7 casitas de 28–30 m² para personas excluidas del mercado de vivienda. Usufructo solidario y energía renovable.",
+  detail:{ why:"Hogar, comunidad y seguridad para quien está excluido/a.",
+    actions:["Prototipo de unidad 28 m²","Reglamento de convivencia"],
+    needs:["Proyecto técnico","Madera certificada","Tornillería estructural"] } },
 
     { slug:"supporto-etico", title:"Apoyo ético & transparencia",
-      cover:"https://images.unsplash.com/photo-1523246191208-8b27648b0403?q=80&w=1600&auto=format&fit=crop",
-      text:"Transparencia total: cuentas dedicadas, control ético y documentación disponible. Pedimos apoyo económico y alianzas responsables, no caridad.",
-      detail:{ why:"La confianza nace de una rendición de cuentas clara.",
-        actions:["Publicación de balance trimestral","Trazabilidad de donaciones"],
-        needs:["Asesoría contable voluntaria","Herramientas de rendición"] } }
+  cover:"https://images.unsplash.com/photo-1523246191208-8b27648b0403?q=80&w=1600&auto=format&fit=crop",
+  text:"Transparencia total: cuentas dedicadas, control ético y documentación disponible. Pedimos apoyo económico y alianzas responsables, no caridad.",
+  detail:{ why:"La confianza nace de una rendición de cuentas clara.",
+    actions:["Publicación de balance trimestral","Trazabilidad de donaciones"],
+    needs:["Asesoría contable voluntaria","Herramientas de rendición"] } },
+
   ],
   it: null, en: null
 };
