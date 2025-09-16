@@ -1,7 +1,17 @@
-/* ========= Tierra Libre – ES/IT/EN + 11 Pilastri ========= */
-/* Questo file gestisce: multilingua, griglia pilastri, PAGINE DETTAGLIO pilastro (pilar.html?slug=...) */
+/* ========= Tierra Libre – ES/IT/EN + Fundraising per pilastro + fallback immagini ========= */
 
-const GOFUNDME_URL = "#"; // ⬅️ metti il link vero quando pronto
+/** 🔗 Campagne per singolo pilastro (slug → URL)
+ *  Metti qui i link reali quando li hai.
+ *  Per ora ho collegato solo La Casa de Silvestro (sostituisci con l'URL reale della tua campagna).
+ */
+const GOFUNDME_BY_PILLAR = {
+  "santuario-felino": "https://www.gofundme.com/f/la-casa-de-silvestro" // ⬅️ sostituisci con l'URL esatto
+  // "recupero-etico-terreno": "https://www.gofundme.com/f/xxx",
+  // ...aggiungi gli altri quando pronti
+};
+
+/** 🔗 Pagina elenco generale campagne */
+const FUND_LIST_URL = "fundraisers.html";
 
 /* ---------- Testi UI (ES/IT/EN) ---------- */
 const TEXT = {
@@ -52,7 +62,6 @@ const TEXT = {
     thanksTitle:"¡Gracias!", thanksP:"Hemos recibido tu mensaje y te responderemos lo antes posible.", thanksBack:"Volver al inicio",
     why:"¿Por qué importa?", actions:"Acciones 2025", needs:"¿Qué necesitamos?"
   },
-
   it: {
     brand:"Tierra Libre",
     menu:{ home:"Home", about:"Chi siamo", pillars:"I Nostri 11 Pilastri", fund:"Raccolta fondi", transparency:"Trasparenza & ODS", contact:"Contattaci", join:"Partecipa" },
@@ -99,7 +108,6 @@ const TEXT = {
     thanksTitle:"Grazie!", thanksP:"Abbiamo ricevuto il tuo messaggio. Ti risponderemo al più presto.", thanksBack:"Torna all’inizio",
     why:"Perché conta?", actions:"Azioni 2025", needs:"Di cosa abbiamo bisogno"
   },
-
   en: {
     brand:"Tierra Libre",
     menu:{ home:"Home", about:"About", pillars:"Our 11 Pillars", fund:"Fundraising", transparency:"Transparency & SDGs", contact:"Contact", join:"Join" },
@@ -148,7 +156,7 @@ const TEXT = {
   }
 };
 
-/* ---------- Dati 11 Pilastri (base ES) ---------- */
+/* ---------- Dati 11 Pilastri (ES base) + immagini con fallback dove serviva ---------- */
 const PILLARS = {
   es: [
     { slug:"recupero-etico-terreno", title:"Recuperación ética de un terreno agrícola",
@@ -157,60 +165,79 @@ const PILLARS = {
       detail:{ why:"Regenerar suelo y biodiversidad reduce la erosión, aumenta la fertilidad y retiene CO₂.",
         actions:["Mapeo de suelo y compostaje termófilo","Setos y franjas florales anti-erosión","Rotaciones: leguminosas → hortícolas → abonos verdes"],
         needs:["Astilladora","Composteras","Semillas de abono verde","Acolchado"] } },
+
     { slug:"santuario-felino", title:"Santuario felino: La Casa de Silvestro",
       cover:"https://images.unsplash.com/photo-1518791841217-8f162f1e1131?q=80&w=1600&auto=format&fit=crop",
       text:"Acogida estable de más de 30 gatos rescatados. No realizamos adopciones: garantizamos cuidados, esterilización, libertad y seguridad de por vida.",
       detail:{ why:"Esterilización y hábitat seguro reducen abandono y sufrimiento.",
         actions:["Micro-consultorio básico","Plan de esterilizaciones y vacunas","Refugios de madera elevados y zonas de sombra"],
         needs:["Alimento","Arenas","Materiales para refugios","Fondo clínico"] } },
+
     { slug:"galline-etiche", title:"Micro-crianza no violenta de gallinas",
+      // bambini/educazione hanno già un blocco sotto; qui restiamo sulle galline classiche
       cover:"https://images.unsplash.com/photo-1501004318641-b39e6451bec6?q=80&w=1600&auto=format&fit=crop",
       text:"Gallinas ‘descartadas’ de la industria intensiva, rescatadas y libres. Huevos no a la venta: excedentes donados a escuelas y familias con necesidad.",
       detail:{ why:"Dignidad animal y consumo responsable.",
         actions:["Gallinero móvil en pradera","Rotaciones de pastoreo"],
         needs:["Redes","Comederos","Madera para posaderos"] } },
+
     { slug:"capre-pascolo-sostenibile", title:"Pastoreo sostenible con cabras",
-      cover:"https://images.unsplash.com/photo-1521191716272-9fc8e2938ac7?q=80&w=1600&auto=format&fit=crop",
+      // 🐐 Caprette: primaria + fallback (se la prima fallisce)
+      cover:[
+        "https://images.unsplash.com/photo-1521191716272-9fc8e2938ac7?q=80&w=1600&auto=format&fit=crop",
+        "https://images.unsplash.com/photo-1516980907201-943c13a8d03f?q=80&w=1600&auto=format&fit=crop"
+      ],
       text:"Cabras para el control ecológico de la vegetación: nada de herbicidas, menos maquinaria contaminante. Animales libres, cuidados, nunca al matadero.",
       detail:{ why:"Reduce riesgo de incendios y favorece el mosaico ecológico.",
         actions:["Vallas móviles y bebederos seguros","Protocolo de bienestar y visitas veterinarias"],
         needs:["Vallado","Cobertizos de sombra"] } },
+
     { slug:"educazione-ecologica", title:"Educación ecológica para niñas/os y familias",
-      cover:"https://images.unsplash.com/photo-1520975922284-4f59b94189ee?q=80&w=1600&auto=format&fit=crop",
+      // 👧🧒 Bambini: primaria + fallback
+      cover:[
+        "https://images.unsplash.com/photo-1520975922284-4f59b94189ee?q=80&w=1600&auto=format&fit=crop",
+        "https://images.unsplash.com/photo-1529156069898-49953e39b3ac?q=80&w=1600&auto=format&fit=crop"
+      ],
       text:"Visitas guiadas, talleres al aire libre y actividades gratuitas: educación ambiental, empatía hacia los animales y responsabilidad compartida.",
       detail:{ why:"Sembrar competencias y valores que permanecen.",
         actions:["Calendario mensual de talleres","Kits didácticos open-source"],
         needs:["Esterillas","Mesas plegables","Material impreso"] } },
+
     { slug:"recupero-creativo", title:"Recuperación creativa & lucha contra el despilfarro",
       cover:"https://images.unsplash.com/photo-1519681393784-d120267933ba?q=80&w=1600&auto=format&fit=crop",
       text:"Damos nueva vida a materiales y vehículos en desuso, transformándolos en refugios y pequeñas estructuras. Antidespilfarro creativo: ético, estético, funcional.",
       detail:{ why:"Reduce costes y residuos, aumenta resiliencia.",
         actions:["Banco de materiales donados","Talleres de autoconstrucción"],
         needs:["Herramienta manual","Tornillería","Pinturas ecológicas"] } },
+
     { slug:"inclusione-sociale", title:"Inclusión y ayuda a personas vulnerables",
       cover:"https://images.unsplash.com/photo-1519337265831-281ec6cc8514?q=80&w=1600&auto=format&fit=crop",
       text:"Espacio abierto y no juzgante: mayores, migrantes, personas con discapacidad o dificultades. Dignidad, pertenencia y participación.",
       detail:{ why:"La soledad es un riesgo social y sanitario.",
         actions:["Jornadas comunitarias y espacios de escucha","Red con servicios sociales locales"],
         needs:["Sillas","Carpas","Micro-fondos de transporte"] } },
+
     { slug:"sobrieta-autosufficienza", title:"Sobriedad & autosuficiencia (energía, agua)",
       cover:"https://images.unsplash.com/photo-1509395176047-4a66953fd231?q=80&w=1600&auto=format&fit=crop",
       text:"Autosustento: huerto, recogida de agua de lluvia, fotovoltaica y micro-eólica futura. Punto de recarga eléctrica a bajo coste para la zona.",
       detail:{ why:"Reduce costes y dependencias; mejora seguridad energética.",
         actions:["Captación y filtrado básico","Micro FV off-grid para luces y bombas"],
         needs:["Depósitos IBC","Tuberías","Inversor","Baterías"] } },
+
     { slug:"coerenza-istituzionale", title:"Coherencia con planes institucionales & ODS",
       cover:"https://images.unsplash.com/photo-1496302662116-35cc4f36df92?q=80&w=1600&auto=format&fit=crop",
       text:"Alineamiento con el Plan Valenciano de Clima y Agenda 2030: ODS 1, 2, 11, 12, 15. Impacto real y medible con objetivos claros y transparencia.",
       detail:{ why:"Hablar el lenguaje institucional facilita alianzas y convocatorias.",
         actions:["KPI trimestrales públicos","Mapa de convocatorias y alianzas"],
         needs:["Apoyo legal/administrativo pro-bono"] } },
+
     { slug:"cohousing-rurale", title:"Co-housing rural ético para personas solas",
       cover:"https://images.unsplash.com/photo-1523419409543-8c1a4de0db48?q=80&w=1600&auto=format&fit=crop",
       text:"Micro-aldea ética: 6–7 casitas de 28–30 m² para personas excluidas del mercado de vivienda. Usufructo solidario y energía renovable.",
       detail:{ why:"Hogar, comunidad y seguridad para quien está excluido/a.",
         actions:["Prototipo de unidad 28 m²","Reglamento de convivencia"],
         needs:["Proyecto técnico","Madera certificada","Tornillería estructural"] } },
+
     { slug:"supporto-etico", title:"Apoyo ético & transparencia",
       cover:"https://images.unsplash.com/photo-1523246191208-8b27648b0403?q=80&w=1600&auto=format&fit=crop",
       text:"Transparencia total: cuentas dedicadas, control ético y documentación disponible. Pedimos apoyo económico y alianzas responsables, no caridad.",
@@ -224,47 +251,58 @@ const PILLARS = {
 /* IT & EN derivati dall’ES (tradotti) */
 PILLARS.it = PILLARS.es.map(p => {
   const map = {
-    "recupero-etico-terreno": { title:"Recupero etico di un terreno agricolo", text:"Recuperiamo un terreno agricolo senza cambiare destinazione d’uso. Niente cemento né speculazione. Coltivazioni rigenerative, rotazioni, biodiversità e suolo vivo.",
+    "recupero-etico-terreno": { title:"Recupero etico di un terreno agricolo",
+      text:"Recuperiamo un terreno agricolo senza cambiare destinazione d’uso. Niente cemento né speculazione. Coltivazioni rigenerative, rotazioni, biodiversità e suolo vivo.",
       why:"Rigenerare suolo e biodiversità riduce l’erosione, aumenta la fertilità e trattiene CO₂.",
       actions:["Mappatura del suolo e compostaggio termofilo","Siepi e fasce fiorite anti-erosione","Rotazioni: leguminose → orticole → sovesci"],
       needs:["Cippatrice","Compostiere","Semi da sovescio","Pacciamatura"] },
-    "santuario-felino": { title:"Santuario felino: La Casa de Silvestro", text:"Accoglienza stabile di oltre 30 gatti salvati. Non facciamo adozioni: garantiamo cura, sterilizzazione, libertà e sicurezza per tutta la vita.",
+    "santuario-felino": { title:"Santuario felino: La Casa de Silvestro",
+      text:"Accoglienza stabile di oltre 30 gatti salvati. Non facciamo adozioni: garantiamo cura, sterilizzazione, libertà e sicurezza per tutta la vita.",
       why:"Sterilizzazione e habitat sicuro riducono randagismo e sofferenza.",
       actions:["Micro-ambulatorio di base","Piano sterilizzazioni e vaccini","Rifugi in legno rialzati e zone d’ombra"],
       needs:["Cibo","Lettiera","Materiali per rifugi","Fondo clinico"] },
-    "galline-etiche": { title:"Micro-crianza non violenta di galline", text:"Galline “scartate” dall’industria intensiva, salvate e libere. Uova non in vendita: eventuali eccedenze donate a scuole e famiglie fragili.",
+    "galline-etiche": { title:"Micro-crianza non violenta di galline",
+      text:"Galline “scartate” dall’industria intensiva, salvate e libere. Uova non in vendita: eventuali eccedenze donate a scuole e famiglie fragili.",
       why:"Dignità animale ed educazione al consumo responsabile.",
       actions:["Pollaio mobile su prato","Rotazioni di pascolo"],
       needs:["Reti","Mangiatoie","Legname per posatoi"] },
-    "capre-pascolo-sostenibile": { title:"Pastoreggio sostenibile con capre", text:"Capre per il controllo ecologico della vegetazione: zero diserbanti e meno macchinari inquinanti. Animali liberi, curati, mai destinati alla macellazione.",
+    "capre-pascolo-sostenibile": { title:"Pastoreggio sostenibile con capre",
+      text:"Capre per il controllo ecologico della vegetazione: zero diserbanti e meno macchinari inquinanti. Animali liberi, curati, mai destinati alla macellazione.",
       why:"Riduce il rischio incendi e favorisce un mosaico ecologico.",
       actions:["Recinzioni mobili, abbeveratoi sicuri","Protocollo benessere e visite veterinarie"],
       needs:["Recinzioni","Ricoveri ombreggiati"] },
-    "educazione-ecologica": { title:"Educazione ecologica per bambini e famiglie", text:"Visite guidate, laboratori all’aperto e attività gratuite: educazione ambientale, empatia verso gli animali e responsabilità condivisa.",
+    "educazione-ecologica": { title:"Educazione ecologica per bambini e famiglie",
+      text:"Visite guidate, laboratori all’aperto e attività gratuite: educazione ambientale, empatia verso gli animali e responsabilità condivisa.",
       why:"Seminare competenze e valori che restano.",
       actions:["Calendario mensile dei laboratori","Kit didattici open-source"],
       needs:["Stuoie","Tavoli pieghevoli","Materiale stampato"] },
-    "recupero-creativo": { title:"Recupero creativo & lotta allo spreco", text:"Diamo nuova vita a materiali e veicoli dismessi trasformandoli in rifugi e piccole strutture. Antispreco creativo: etico, estetico, funzionale.",
+    "recupero-creativo": { title:"Recupero creativo & lotta allo spreco",
+      text:"Diamo nuova vita a materiali e veicoli dismessi, trasformandoli in rifugi e piccole strutture. Antispreco creativo: etico, estetico, funzionale.",
       why:"Riduce costi e rifiuti, aumenta la resilienza.",
       actions:["Banca dei materiali donati","Laboratori di autocostruzione"],
       needs:["Attrezzi manuali","Viti","Vernici ecologiche"] },
-    "inclusione-sociale": { title:"Inclusione e aiuto a persone vulnerabili", text:"Spazio aperto e non giudicante: anziani, migranti, persone con disabilità o difficoltà. Dignità, appartenenza e partecipazione.",
+    "inclusione-sociale": { title:"Inclusione e aiuto a persone vulnerabili",
+      text:"Spazio aperto e non giudicante: anziani, migranti, persone con disabilità o difficoltà. Dignità, appartenenza e partecipazione.",
       why:"La solitudine è un rischio sanitario e sociale.",
       actions:["Giornate di comunità e sportelli di ascolto","Rete con servizi sociali locali"],
       needs:["Sedie","Gazebo","Micro-fondi per trasporti"] },
-    "sobrieta-autosufficienza": { title:"Sobrietà & autosufficienza (energia, acqua)", text:"Autosostentamento: orto, raccolta di acqua piovana, fotovoltaico e micro-eolico futuro. Punto di ricarica elettrica sociale per la zona.",
+    "sobrieta-autosufficienza": { title:"Sobrietà & autosufficienza (energia, acqua)",
+      text:"Autosostentamento: orto, raccolta di acqua piovana, fotovoltaico e micro-eolico futuro. Punto di ricarica elettrica sociale per la zona.",
       why:"Riduce costi e dipendenze, migliora la sicurezza energetica.",
       actions:["Raccolta e filtrazione base","Micro FV off-grid per luci e pompe"],
       needs:["Serbatoi IBC","Tubi","Inverter","Batterie"] },
-    "coerenza-istituzionale": { title:"Coerenza con piani istituzionali & ODS", text:"Allineamento con il Piano Valenciano per il Clima e l’Agenda 2030: ODS 1, 2, 11, 12, 15. Impatto reale e misurabile con obiettivi chiari e trasparenza.",
+    "coerenza-istituzionale": { title:"Coerenza con piani istituzionali & ODS",
+      text:"Allineamento con il Piano Valenciano per il Clima e l’Agenda 2030: ODS 1, 2, 11, 12, 15. Impatto reale e misurabile con obiettivi chiari e trasparenza.",
       why:"Parlare il linguaggio delle istituzioni facilita alleanze e bandi.",
       actions:["KPI trimestrali pubblici","Mappatura bandi e partnership"],
       needs:["Supporto legale/amministrativo pro-bono"] },
-    "cohousing-rurale": { title:"Co-housing rurale etico per persone sole", text:"Micro-villaggio etico: 6–7 casette di 28–30 m² per persone escluse dal mercato della casa. Usufrutto solidale ed energia rinnovabile.",
+    "cohousing-rurale": { title:"Co-housing rurale etico per persone sole",
+      text:"Micro-villaggio etico: 6–7 casette di 28–30 m² per persone escluse dal mercato della casa. Usufrutto solidale ed energia rinnovabile.",
       why:"Casa, comunità e sicurezza per chi è escluso dal mercato.",
       actions:["Prototipo unità 28 m²","Regolamento di convivenza"],
       needs:["Progettazione","Legname certificato","Viti strutturali"] },
-    "supporto-etico": { title:"Supporto etico & trasparenza", text:"Trasparenza totale: conti dedicati, controllo etico e documentazione disponibile. Chiediamo sostegno economico e alleanze responsabili, non carità.",
+    "supporto-etico": { title:"Supporto etico & trasparenza",
+      text:"Trasparenza totale: conti dedicati, controllo etico e documentazione disponibile. Chiediamo sostegno economico e alleanze responsabili, non carità.",
       why:"La fiducia nasce da rendicontazione chiara.",
       actions:["Pubblicazione bilancio trimestrale","Tracciabilità delle donazioni"],
       needs:["Commercialista volontario","Strumenti di rendicontazione"] }
@@ -273,50 +311,60 @@ PILLARS.it = PILLARS.es.map(p => {
   return { slug:p.slug, title:m?m.title:p.title, cover:p.cover, text:m?m.text:p.text,
     detail:{ why:m?m.why:p.detail.why, actions:m?m.actions:p.detail.actions, needs:m?m.needs:p.detail.needs } };
 });
-
 PILLARS.en = PILLARS.es.map(p => {
   const map = {
-    "recupero-etico-terreno": { title:"Ethical recovery of farmland", text:"We recover farmland without changing its use. No concrete, no speculation. Regenerative crops, rotations, biodiversity and living soil.",
+    "recupero-etico-terreno": { title:"Ethical recovery of farmland",
+      text:"We recover farmland without changing its use. No concrete, no speculation. Regenerative crops, rotations, biodiversity and living soil.",
       why:"Restoring soil and biodiversity reduces erosion, increases fertility and captures CO₂.",
       actions:["Soil mapping and thermophilic composting","Hedgerows and flower strips against erosion","Rotations: legumes → vegetables → green manure"],
       needs:["Wood chipper","Compost bins","Green manure seeds","Mulch"] },
-    "santuario-felino": { title:"Feline sanctuary: La Casa de Silvestro", text:"Stable shelter for 30+ rescued cats. We do not run adoptions: we ensure care, neutering, freedom and safety for life.",
+    "santuario-felino": { title:"Feline sanctuary: La Casa de Silvestro",
+      text:"Stable shelter for 30+ rescued cats. We do not run adoptions: we ensure care, neutering, freedom and safety for life.",
       why:"Neutering and a safe habitat reduce abandonment and suffering.",
       actions:["Basic micro-clinic","Neutering and vaccination plan","Raised wooden shelters and shaded areas"],
       needs:["Food","Litter","Shelter materials","Clinical fund"] },
-    "galline-etiche": { title:"Non-violent micro-rearing of hens", text:"Hens discarded by intensive farming, rescued and free. Eggs not for sale: surplus donated to schools and families in need.",
+    "galline-etiche": { title:"Non-violent micro-rearing of hens",
+      text:"Hens discarded by intensive farming, rescued and free. Eggs not for sale: surplus donated to schools and families in need.",
       why:"Animal dignity and responsible consumption.",
       actions:["Mobile coop on pasture","Rotational grazing"],
       needs:["Fencing nets","Feeders","Perch wood"] },
-    "capre-pascolo-sostenibile": { title:"Sustainable goat grazing", text:"Goats for ecological vegetation control: no herbicides, fewer polluting machines. Free, well-cared animals, never for slaughter.",
+    "capre-pascolo-sostenibile": { title:"Sustainable goat grazing",
+      text:"Goats for ecological vegetation control: no herbicides, fewer polluting machines. Free, well-cared animals, never for slaughter.",
       why:"Reduces wildfire risk and supports a diverse ecological mosaic.",
       actions:["Mobile fencing, safe drinkers","Welfare protocol and vet visits"],
       needs:["Fencing","Shaded micro-shelters"] },
-    "educazione-ecologica": { title:"Eco-education for children and families", text:"Guided visits, outdoor workshops and free activities: environmental education, empathy for animals and shared responsibility.",
+    "educazione-ecologica": { title:"Eco-education for children and families",
+      text:"Guided visits, outdoor workshops and free activities: environmental education, empathy for animals and shared responsibility.",
       why:"Planting skills and values that last.",
       actions:["Monthly workshop calendar","Open-source teaching kits"],
       needs:["Mats","Folding tables","Printed materials"] },
-    "recupero-creativo": { title:"Creative recovery & anti-waste", text:"We give new life to discarded materials and vehicles, turning them into shelters and small structures. Creative anti-waste.",
+    "recupero-creativo": { title:"Creative recovery & anti-waste",
+      text:"We give new life to discarded materials and vehicles, turning them into shelters and small structures. Creative anti-waste.",
       why:"Cuts costs and waste, boosts resilience.",
       actions:["Donated materials bank","Self-construction workshops"],
       needs:["Hand tools","Screws","Eco-paints"] },
-    "inclusione-sociale": { title:"Inclusion & help for vulnerable people", text:"Open, non-judgmental space: elders, migrants, people with disabilities or hardship. Dignity, belonging and participation.",
+    "inclusione-sociale": { title:"Inclusion & help for vulnerable people",
+      text:"Open, non-judgmental space: elders, migrants, people with disabilities or hardship. Dignity, belonging and participation.",
       why:"Loneliness is a social and health risk.",
       actions:["Community days and listening spaces","Network with local social services"],
       needs:["Chairs","Gazebos","Micro-funds for transport"] },
-    "sobrieta-autosufficienza": { title:"Sobriety & self-sufficiency (energy, water)", text:"Self-reliance: garden, rainwater harvesting, PV and future micro-wind. Low-cost EV charging point for the area.",
+    "sobrieta-autosufficienza": { title:"Sobriety & self-sufficiency (energy, water)",
+      text:"Self-reliance: garden, rainwater harvesting, PV and future micro-wind. Low-cost EV charging point for the area.",
       why:"Reduces costs and dependencies, improves energy security.",
       actions:["Water capture and basic filtration","Off-grid micro-PV for lights and pumps"],
       needs:["IBC tanks","Pipes","Inverter","Batteries"] },
-    "coerenza-istituzionale": { title:"Coherence with institutional plans & SDGs", text:"Alignment with the Valencian Climate Plan and the 2030 Agenda: SDGs 1, 2, 11, 12, 15. Real, measurable impact with clear goals and transparency.",
+    "coerenza-istituzionale": { title:"Coherence with institutional plans & SDGs",
+      text:"Alignment with the Valencian Climate Plan and the 2030 Agenda: SDGs 1, 2, 11, 12, 15. Real, measurable impact with clear goals and transparency.",
       why:"Speaking the institutional language facilitates alliances and grants.",
       actions:["Public quarterly KPIs","Mapping of calls and partnerships"],
       needs:["Pro-bono legal/administrative support"] },
-    "cohousing-rurale": { title:"Ethical rural co-housing for singles", text:"Ethical micro-village: 6–7 tiny houses of 28–30 m² for people excluded from the housing market. Social usufruct and renewables.",
+    "cohousing-rurale": { title:"Ethical rural co-housing for singles",
+      text:"Ethical micro-village: 6–7 tiny houses of 28–30 m² for people excluded from the housing market. Social usufruct and renewables.",
       why:"Home, community and safety for those excluded from the market.",
       actions:["28 m² unit prototype","Shared living rules"],
       needs:["Technical design","Certified timber","Structural screws"] },
-    "supporto-etico": { title:"Ethical support & transparency", text:"Total transparency: dedicated accounts, ethical oversight and available documentation. We seek responsible financial support and alliances, not charity.",
+    "supporto-etico": { title:"Ethical support & transparency",
+      text:"Total transparency: dedicated accounts, ethical oversight and available documentation. We seek responsible financial support and alliances, not charity.",
       why:"Trust grows from clear accountability.",
       actions:["Quarterly statement publication","Donation traceability"],
       needs:["Volunteer accountant","Accountability tools"] }
@@ -326,50 +374,102 @@ PILLARS.en = PILLARS.es.map(p => {
     detail:{ why:m?m.why:p.detail.why, actions:m?m.actions:p.detail.actions, needs:m?m.needs:p.detail.needs } };
 });
 
-/* ================== Stato & utils ================== */
+/* ================== Stato & utilità ================== */
 let state = { lang: localStorage.getItem("lang") || "es" };
 
 function t(path){ const parts=path.split("."); let cur=TEXT[state.lang]||TEXT.es; for (const p of parts) cur=cur[p]; return cur; }
-function setLang(lang){ state.lang=lang; localStorage.setItem("lang",lang); translateUI(); renderAboutBullets(); renderBlocks(); renderPillars(); renderKPI(); renderODS(); updateNextRedirects(); renderPillarPageIfNeeded(); applyThanksVisibility(); }
+function setLang(lang){ state.lang=lang; localStorage.setItem("lang",lang); translateUI(); renderAboutBullets(); renderBlocks(); renderPillars(); renderKPI(); renderODS(); updateNextRedirects(); renderPillarPageIfNeeded(); renderFundListIfNeeded(); applyThanksVisibility(); }
 function translateUI(){ document.querySelectorAll("[data-i18n]").forEach(el=>{ const key=el.getAttribute("data-i18n"); const val=t(key); if(typeof val==="string") el.textContent=val; }); document.querySelectorAll("[data-i18n-ph]").forEach(el=>{ const key=el.getAttribute("data-i18n-ph"); const val=t(key); if(typeof val==="string") el.setAttribute("placeholder",val); }); }
 
 function renderAboutBullets(){ const ul=document.getElementById("aboutBullets"); if(!ul) return; ul.innerHTML=""; (t("aboutBullets")||[]).forEach(txt=>{ const li=document.createElement("li"); li.textContent="• "+txt; ul.appendChild(li); }); }
-function renderBlocks(){ const wrap=document.getElementById("blocks"); if(!wrap) return; wrap.innerHTML=""; (t("blocks")||[]).forEach(b=>{ wrap.insertAdjacentHTML("beforeend", `<div class="card"><img src="${b.img}" alt="${b.title}" class="h-56 w-full object-cover"><div class="p-6"><h3 class="text-2xl font-bold">${b.title}</h3><p class="mt-2 text-gray-700 text-lg">${b.text}</p></div></div>`); }); }
 
-/* Griglia su index.html → ora linka alla pagina dedicata pilar.html?slug=... */
-function renderPillars(){ const data=PILLARS[state.lang]||PILLARS.es; const grid=document.getElementById("pillarsGrid"); if(!grid) return; grid.innerHTML=""; const discover=t("discover"); data.forEach(p=>{ grid.insertAdjacentHTML("beforeend", `
-  <a class="group text-left card border hover:shadow-2xl transition" href="pilar.html?slug=${encodeURIComponent(p.slug)}">
-    <div class="h-44 w-full overflow-hidden">
-      <img src="${p.cover}" alt="${p.title}" class="h-full w-full object-cover group-hover:scale-105 transition-transform duration-300">
-    </div>
-    <div class="p-5">
-      <h3 class="text-xl font-bold">${p.title}</h3>
-      <p class="mt-2 text-gray-700">${p.text}</p>
-      <span class="mt-4 inline-block bg-lime-400 text-black font-extrabold px-5 py-2 rounded-xl">${discover}</span>
-    </div>
-  </a>`); }); }
+/* IMG fallback helper */
+function imgTag(srcOrArr, alt, classes=""){
+  const srcs = Array.isArray(srcOrArr) ? srcOrArr : [srcOrArr];
+  const primary = srcs[0];
+  const fallback = srcs[1] || primary;
+  return `<img src="${primary}" alt="${alt}" class="${classes}" onerror="this.onerror=null;this.src='${fallback}'">`;
+}
 
-function renderKPI(){ const wrap=document.getElementById("kpi"); if(!wrap) return; wrap.innerHTML=""; t("kpi").forEach(k=>{ wrap.insertAdjacentHTML("beforeend", `
-  <div class="rounded-2xl bg-white p-6 shadow"><div class="flex items-center justify-between"><h3 class="text-xl font-bold">${k.label}</h3><span class="text-2xl font-extrabold">${k.val} / ${k.target}</span></div><div class="mt-3 w-full bg-gray-200 rounded-full h-3"><div class="h-3 rounded-full bg-lime-500" style="width:${Math.min(100,(k.val/k.target)*100)}%"></div></div></div>`); }); }
+function renderBlocks(){ const wrap=document.getElementById("blocks"); if(!wrap) return; wrap.innerHTML="";
+  (t("blocks")||[]).forEach(b=>{
+    wrap.insertAdjacentHTML("beforeend", `
+      <div class="card">
+        ${imgTag(b.img, b.title, "h-56 w-full object-cover")}
+        <div class="p-6">
+          <h3 class="text-2xl font-bold">${b.title}</h3>
+          <p class="mt-2 text-gray-700 text-lg">${b.text}</p>
+        </div>
+      </div>`);
+  });
+}
 
-function renderODS(){ const wrap=document.getElementById("ods"); if(!wrap) return; wrap.innerHTML=""; t("ods").forEach(o=>{ wrap.insertAdjacentHTML("beforeend", `
-  <div class="rounded-2xl bg-white p-5 shadow border"><div class="text-3xl font-extrabold">${o.n}</div><div class="mt-1 text-lg font-semibold">${o.title}</div><p class="mt-2 text-gray-700 text-sm">${
-    state.lang==='it' ? 'Azioni: agricoltura rigenerativa, inclusione, prevenzione sprechi, tutela habitat, educazione ambientale.' :
-    state.lang==='en' ? 'Actions: regenerative agriculture, inclusion, anti-waste, habitat protection, eco-education.' :
-    'Acciones: agricultura regenerativa, inclusión, anti-despilfarro, protección del hábitat, educación ambiental.'
-  }</p></div>`); }); }
+/* Link “Scopri di più” → pagina pilar.html */
+function renderPillars(){ const data=PILLARS[state.lang]||PILLARS.es; const grid=document.getElementById("pillarsGrid"); if(!grid) return; grid.innerHTML=""; const discover=t("discover");
+  data.forEach(p=>{
+    const coverHtml = imgTag(p.cover, p.title, "h-full w-full object-cover group-hover:scale-105 transition-transform duration-300");
+    grid.insertAdjacentHTML("beforeend", `
+      <a class="group text-left card border hover:shadow-2xl transition" href="pilar.html?slug=${encodeURIComponent(p.slug)}">
+        <div class="h-44 w-full overflow-hidden">${coverHtml}</div>
+        <div class="p-5">
+          <h3 class="text-xl font-bold">${p.title}</h3>
+          <p class="mt-2 text-gray-700">${p.text}</p>
+          <span class="mt-4 inline-block bg-lime-400 text-black font-extrabold px-5 py-2 rounded-xl">${discover}</span>
+        </div>
+      </a>`);
+  });
+}
 
-function updateNextRedirects(){ const base=location.href.split('#')[0]; const nextUrl=base.replace(/(index\.html)?$/,'index.html')+"#gracias"; const cNext=document.getElementById("contactNext"); const jNext=document.getElementById("joinNext"); if(cNext) cNext.value=nextUrl; if(jNext) jNext.value=nextUrl; }
-function applyThanksVisibility(){ const section=document.getElementById("gracias"); if(!section) return; if(location.hash.replace('#','')==='gracias'){ section.classList.remove('hidden'); } else { section.classList.add('hidden'); } }
+/* KPI / ODS come prima */
+function renderKPI(){ const wrap=document.getElementById("kpi"); if(!wrap) return; wrap.innerHTML="";
+  t("kpi").forEach(k=>{
+    wrap.insertAdjacentHTML("beforeend", `
+      <div class="rounded-2xl bg-white p-6 shadow">
+        <div class="flex items-center justify-between">
+          <h3 class="text-xl font-bold">${k.label}</h3>
+          <span class="text-2xl font-extrabold">${k.val} / ${k.target}</span>
+        </div>
+        <div class="mt-3 w-full bg-gray-200 rounded-full h-3">
+          <div class="h-3 rounded-full bg-lime-500" style="width:${Math.min(100,(k.val/k.target)*100)}%"></div>
+        </div>
+      </div>`);
+  });
+}
+
+function renderODS(){ const wrap=document.getElementById("ods"); if(!wrap) return; wrap.innerHTML="";
+  t("ods").forEach(o=>{
+    wrap.insertAdjacentHTML("beforeend", `
+      <div class="rounded-2xl bg-white p-5 shadow border">
+        <div class="text-3xl font-extrabold">${o.n}</div>
+        <div class="mt-1 text-lg font-semibold">${o.title}</div>
+        <p class="mt-2 text-gray-700 text-sm">${
+          state.lang==='it' ? 'Azioni: agricoltura rigenerativa, inclusione, prevenzione sprechi, tutela habitat, educazione ambientale.' :
+          state.lang==='en' ? 'Actions: regenerative agriculture, inclusion, anti-waste, habitat protection, eco-education.' :
+          'Acciones: agricultura regenerativa, inclusión, anti-despilfarro, protección del hábitat, educación ambiental.'
+        }</p>
+      </div>`);
+  });
+}
+
+/* Redirect post-form */
+function updateNextRedirects(){ const base=location.href.split('#')[0];
+  const nextUrl=(base.includes("index.html")?base:base.replace(/\/$/,'/')+"index.html")+"#gracias";
+  const cNext=document.getElementById("contactNext"); const jNext=document.getElementById("joinNext");
+  if(cNext) cNext.value=nextUrl; if(jNext) jNext.value=nextUrl;
+}
+function applyThanksVisibility(){ const section=document.getElementById("gracias"); if(!section) return;
+  if(location.hash.replace('#','')==='gracias'){ section.classList.remove('hidden'); } else { section.classList.add('hidden'); } }
 function setYear(){ const y=document.getElementById("year"); if(y) y.textContent=new Date().getFullYear(); }
 
 /* --------- Pagina pilastro (pilar.html) --------- */
 function qs(name){ const m=location.search.match(new RegExp('[?&]'+name+'=([^&]+)')); return m ? decodeURIComponent(m[1]) : null; }
-function pillarBySlug(slug){ const arr=PILLARS[state.lang]||PILLARS.es; return arr.find(x=>x.slug===slug); }
+function pillarArr(){ return PILLARS[state.lang]||PILLARS.es; }
+function pillarBySlug(slug){ return pillarArr().find(x=>x.slug===slug); }
+function getPillarFundUrl(slug){ const u=GOFUNDME_BY_PILLAR[slug]; return (u && u !== "#") ? u : FUND_LIST_URL; }
 
 function renderPillarPageIfNeeded(){
   const mount=document.getElementById("pillarMount");
-  if(!mount) return; // non siamo su pilar.html
+  if(!mount) return;
 
   const slug = qs('slug');
   const p = pillarBySlug(slug);
@@ -389,11 +489,13 @@ function renderPillarPageIfNeeded(){
     return;
   }
 
+  const coverHtml = imgTag(p.cover, p.title, "h-80 w-full object-cover");
+
   mount.innerHTML = `
     <section class="bg-gradient-to-b from-green-50 to-white">
       <div class="container mx-auto px-6 py-12">
         <div class="rounded-3xl overflow-hidden shadow-xl bg-white">
-          <img src="${p.cover}" alt="${p.title}" class="h-80 w-full object-cover">
+          ${coverHtml}
           <div class="p-8">
             <nav class="text-sm text-gray-500"><a class="underline" href="index.html#home">Home</a> / <a class="underline" href="index.html#pillars">${t("pillarsTitle")}</a> / <span>${p.title}</span></nav>
             <h1 class="mt-2 text-3xl md:text-4xl font-extrabold">${p.title}</h1>
@@ -418,7 +520,7 @@ function renderPillarPageIfNeeded(){
             </div>
 
             <div class="mt-6 flex flex-wrap gap-4">
-              <a href="index.html#gofund" class="bg-green-700 text-white font-extrabold px-6 py-3 rounded-xl">${suppTxt}</a>
+              <a href="${getPillarFundUrl(p.slug)}" target="_blank" rel="noreferrer" class="bg-green-700 text-white font-extrabold px-6 py-3 rounded-xl">${suppTxt}</a>
               <a href="index.html#pillars" class="bg-gray-200 text-gray-800 font-semibold px-6 py-3 rounded-xl">${backTxt}</a>
             </div>
           </div>
@@ -427,10 +529,38 @@ function renderPillarPageIfNeeded(){
     </section>`;
 }
 
-/* Router per pagina index (solo per #gracias) */
+/* --------- Pagina elenco campagne (fundraisers.html) --------- */
+function renderFundListIfNeeded(){
+  const list=document.getElementById("fundList");
+  if(!list) return;
+  list.innerHTML="";
+  const data = pillarArr();
+  data.forEach(p=>{
+    const url = getPillarFundUrl(p.slug);
+    const hasFund = (url !== FUND_LIST_URL);
+    const coverHtml = imgTag(p.cover, p.title, "h-44 w-full object-cover");
+    list.insertAdjacentHTML("beforeend", `
+      <div class="card border overflow-hidden">
+        <div class="h-44 w-full overflow-hidden">${coverHtml}</div>
+        <div class="p-5">
+          <h3 class="text-xl font-bold">${p.title}</h3>
+          <p class="mt-2 text-gray-700">${p.text}</p>
+          <div class="mt-4 flex gap-3">
+            <a href="pilar.html?slug=${encodeURIComponent(p.slug)}" class="bg-gray-200 text-gray-800 font-semibold px-5 py-2 rounded-xl">${t("discover")}</a>
+            <a href="${url}" ${hasFund?'target="_blank" rel="noreferrer"':''}
+               class="bg-green-700 text-white font-extrabold px-5 py-2 rounded-xl ${hasFund?'':'opacity-60 cursor-not-allowed'}">
+               ${t("supportThis")}${hasFund?'':' (prossimamente)'}
+            </a>
+          </div>
+        </div>
+      </div>`);
+  });
+}
+
+/* Router per #gracias su index */
 window.addEventListener("hashchange", ()=>{ applyThanksVisibility(); });
 
-/* Init comune (index + pilar) */
+/* Init comune (index, pilar, fundraisers) */
 document.addEventListener("DOMContentLoaded", ()=>{
   document.querySelectorAll("[data-lang]").forEach(btn=>{
     btn.addEventListener("click", ()=> setLang(btn.getAttribute("data-lang")));
@@ -444,14 +574,13 @@ document.addEventListener("DOMContentLoaded", ()=>{
   renderKPI();
   renderODS();
   updateNextRedirects();
-  applyThanksVisibility();
   renderPillarPageIfNeeded();
+  renderFundListIfNeeded();
+  applyThanksVisibility();
 
-  // GoFundMe href
+  /* Bottoni “Sostienici/Apóyanos” generici → elenco campagne */
   const fundBtn=document.getElementById("fundBtn");
   const fundBtn2=document.getElementById("fundBtn2");
-  if (GOFUNDME_URL && GOFUNDME_URL !== "#") {
-    if (fundBtn) fundBtn.href = GOFUNDME_URL;
-    if (fundBtn2) fundBtn2.href = GOFUNDME_URL;
-  }
+  if (fundBtn) fundBtn.href = FUND_LIST_URL;
+  if (fundBtn2) fundBtn2.href = FUND_LIST_URL;
 });
