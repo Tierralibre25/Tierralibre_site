@@ -1,7 +1,27 @@
 /* ========= Tierra Libre – ES/IT/EN + Fundraising per pilastro + fallback immagini ========= */
 
 /** 🔗 Campagne per singolo pilastro (slug → URL)
- *  Metti qui i link reali quando li hai.
+ *  Metti qui i link reali quando li hai./* ========== Gestione fallback immagini ========== */
+function tlNextFallback(img){
+  try{
+    const list = JSON.parse(img.getAttribute('data-srcs')||'[]');
+    const idx = parseInt(img.getAttribute('data-idx')||'0',10);
+    const next = list[idx+1];
+    if(next){
+      img.setAttribute('data-idx', String(idx+1));
+      img.src = next;
+    }else{
+      img.src = 'https://placehold.co/1600x900?text=Imagen+no+disponible';
+    }
+  }catch(e){
+    img.src = 'https://placehold.co/1600x900?text=Imagen+no+disponible';
+  }
+}
+function imgTag(srcOrArr, alt, classes=""){
+  const srcs = Array.isArray(srcOrArr) ? srcOrArr : [srcOrArr];
+  const safe = JSON.stringify(srcs);
+  return `<img src="${srcs[0]}" data-srcs='${safe}' data-idx="0" alt="${alt}" class="${classes}" onerror="tlNextFallback(this)">`;
+}
  *  Per ora ho collegato solo La Casa de Silvestro (sostituisci con l'URL reale della tua campagna).
  */
 const GOFUNDME_BY_PILLAR = {
@@ -154,6 +174,27 @@ const TEXT = {
     thanksTitle:"Thanks!", thanksP:"We’ve received your message and will reply as soon as possible.", thanksBack:"Back to home",
     why:"Why it matters?", actions:"Actions 2025", needs:"What we need"
   }
+/* ========== Gestione fallback immagini ========== */
+function tlNextFallback(img){
+  try{
+    const list = JSON.parse(img.getAttribute('data-srcs')||'[]');
+    const idx = parseInt(img.getAttribute('data-idx')||'0',10);
+    const next = list[idx+1];
+    if(next){
+      img.setAttribute('data-idx', String(idx+1));
+      img.src = next;
+    }else{
+      img.src = 'https://placehold.co/1600x900?text=Imagen+no+disponible';
+    }
+  }catch(e){
+    img.src = 'https://placehold.co/1600x900?text=Imagen+no+disponible';
+  }
+}
+function imgTag(srcOrArr, alt, classes=""){
+  const srcs = Array.isArray(srcOrArr) ? srcOrArr : [srcOrArr];
+  const safe = JSON.stringify(srcs);
+  return `<img src="${srcs[0]}" data-srcs='${safe}' data-idx="0" alt="${alt}" class="${classes}" onerror="tlNextFallback(this)">`;
+}
 };
 
 /* ---------- Dati 11 Pilastri (ES base) + immagini con fallback dove serviva ---------- */
