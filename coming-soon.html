@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <title>Campaña en preparación • Tierra Libre</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="assets/custom.css" />
+</head>
+<body class="bg-white text-gray-900">
+  <header class="sticky top-0 z-40 header-grad text-white shadow-lg">
+    <div class="container mx-auto px-4 py-4 flex items-center justify-between">
+      <a href="index.html#home" class="text-2xl font-extrabold tracking-tight">🌱 Tierra Libre</a>
+      <nav class="hidden md:flex gap-6 text-lg">
+        <a class="hover:opacity-90" href="index.html#home">Inicio</a>
+        <a class="hover:opacity-90" href="fundraisers.html">Recaudación de fondos</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="min-h-[60vh]">
+    <section class="bg-gradient-to-b from-green-50 to-white">
+      <div class="container mx-auto px-6 py-16 text-center">
+        <h1 class="text-4xl font-extrabold">En preparación</h1>
+        <p class="mt-4 text-lg text-gray-700">Esta campaña estará disponible <strong>antes del 20 de septiembre</strong>.</p>
+        <div class="mt-8 flex items-center justify-center gap-3">
+          <a href="fundraisers.html" class="btn-primary">Volver a campañas</a>
+          <a href="index.html#pillars" class="btn-muted">Ver pilares</a>
+        </div>
+
+        <hr class="my-10" />
+        <div class="max-w-2xl mx-auto text-left text-gray-800">
+          <h2 class="text-2xl font-bold">Versiones</h2>
+          <ul class="list-disc list-inside mt-3 space-y-1">
+            <li><strong>IT:</strong> Questa campagna sarà disponibile <em>entro il 20 settembre</em>.</li>
+            <li><strong>EN:</strong> This campaign will be available <em>by September 20</em>.</li>
+            <li><strong>ES:</strong> Esta campaña estará disponible <em>antes del 20 de septiembre</em>.</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="bg-white">
+    <div class="container mx-auto px-6 py-10 border-t text-gray-700 flex flex-col md:flex-row md:items-center md:justify-between gap-4">
+      <p class="text-sm">© <span id="year"></span> Tierra Libre Social Club • Villalonga (Valencia)</p>
+      <div class="flex gap-5 text-sm">
+        <a class="underline" href="mailto:info@cooperativatierralibre.com">info@cooperativatierralibre.com</a>
+        <a class="underline" href="index.html#contact">Contáctanos</a>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    document.addEventListener("DOMContentLoaded", ()=> {
+      const y=document.getElementById("year");
+      if(y) y.textContent=new Date().getFullYear();
+    });
+  </script>
+</body>
+</html>
