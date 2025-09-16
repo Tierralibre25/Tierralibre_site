@@ -1,13 +1,11 @@
 /* ========= Tierra Libre – ES/IT/EN + Fundraising per pilastro + fallback immagini ========= */
 
-/** 🔗 Campagne per singolo pilastro (slug → URL)
- *  Metti qui i link reali quando li hai.
- *  Per ora ho collegato solo La Casa de Silvestro (sostituisci con l'URL reale della tua campagna).
- */
+/** 🔗 Campagne per singolo pilastro (slug → URL) */
 const GOFUNDME_BY_PILLAR = {
-  "santuario-felino": "https://www.gofundme.com/f/la-casa-de-silvestro" // ⬅️ sostituisci con l'URL esatto
-  // "recupero-etico-terreno": "https://www.gofundme.com/f/xxx",
-  // ...aggiungi gli altri quando pronti
+  // Casa de Silvestro (santuario felino)
+  "santuario-felino": "https://gofund.me/ae25aeac4"
+};
+
 };
 
 /** 🔗 Pagina elenco generale campagne */
